@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>caro</title>
+</head>
+<body>
+<div id="broad">
+
+</div>
+<script>
+    let Cell = function (xNumber, yNumber, inside) {
+        this.x = (xNumber * 40) + "px";
+        this.y = (yNumber * 40) + "px";
+        this.id = this.x + this.y;
+        this.inside = inside || "";
+
+
+        this.display = function () {
+            document.getElementById("broad").innerHTML += "<div " +
+                "style=\"position: absolute; width: 40px; height:40px;line-height: 40px;" +
+                "border: 2px solid black;" +
+                "font-size: 30px;\" align=\"center\" id =\"" + this.id + "\">" +
+                "<b style=\"color: red\"></b>" +
+                "</div>";
+            document.getElementById(this.id).style.left = this.x;
+            document.getElementById(this.id).style.top = this.y;
+            document.getElementById(this.id).querySelector("b").innerHTML = this.inside;
+            document.getElementById(this.id).querySelector("b").style.color = "red";
+        };
+
+    };
+    let broad = [];
+    broad = makeNewBroad(20, 20, broad);
+    for (let e of broad) {
+        e.display();
+    }
+
+
+    function makeNewBroad(xMax, yMax, arr) {
+        arr = [];
+        for (let y = 1; y < yMax + 1; y++) {
+            for (let x = 1; x < xMax + 1; x++) {
+                arr.push(new Cell(x, y,))
+            }
+        }
+        console.log("array generated " + xMax + " x " + yMax);
+        return arr;
+    }
+
+
+</script>
+</body>
+</html>
