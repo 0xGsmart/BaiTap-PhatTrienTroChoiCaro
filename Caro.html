@@ -152,6 +152,7 @@
             document.getElementById("broad").innerHTML = "";
             document.getElementById("broad").innerHTML = "<h1 align=\"center\">" +
                 "Player " + winner + " is the winner !</h1>" +
+                " <p align=\"center\">Total Turn: "+game.turn+"</p>"+
                 "    <p align=\"center\"><button onclick=\"start();\">Play Again?</button></p>"
 
         },
@@ -159,7 +160,7 @@
             if (winCondition.doc(broad) ||
                 winCondition.ngang(broad) ||
                 winCondition.cheo(broad)) {
-                setTimeout(this.win, 500, this.playerX);
+                setTimeout(this.win, 350, this.playerX);
             }
         },
         marked: function (id) {
@@ -193,7 +194,7 @@
     }
 
     start();
-    console.log("use setPlayerColor(X,O) to set your Color !")
+    console.log("use setPlayerColor(X,O) to set your Color !");
 
 
 </script>
