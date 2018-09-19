@@ -9,45 +9,82 @@
 
 </div>
 <script>
-    let Cell = function (xNumber, yNumber, inside) {
-        this.x = (xNumber * 40) + "px";
-        this.y = (yNumber * 40) + "px";
-        this.id = this.x + this.y;
-        this.inside = inside || "";
+    const X = "X";
+    const O = "O";
 
+
+    let Cell = function (xNumber, yNumber, inside, cellSize, color) {
+        this.cellSize = cellSize || 40;
+        this.x = (xNumber * this.cellSize) + "px";
+        this.y = (yNumber * this.cellSize) + "px";
+        this.id = xNumber + "x" + yNumber;
+        this.inside = inside || "";
+        this.borderColor = color || "black";
+
+        this.setColor = function () {
+            if (this.inside === X) {
+                return "blue";
+            } else if (this.inside === O) {
+                return "red";
+            } else {
+                return this.borderColor;
+            }
+        };
 
         this.display = function () {
             document.getElementById("broad").innerHTML += "<div " +
-                "style=\"position: absolute; width: 40px; height:40px;line-height: 40px;" +
-                "border: 2px solid black;" +
-                "font-size: 30px;\" align=\"center\" id =\"" + this.id + "\">" +
+                "style=\"position: absolute; width: " + this.cellSize + "px; height: " + this.cellSize + "px;" +
+                "line-height: " + this.cellSize + "px;" +
+                "border: 2px solid " + this.borderColor + ";" +
+                "font-size: " + (this.cellSize - 15) + "px;\" align=\"center\" id =\"" + this.id + "\" " +
+                "onclick=\"marked(this.id);\">" +
                 "<b style=\"color: red\"></b>" +
                 "</div>";
             document.getElementById(this.id).style.left = this.x;
             document.getElementById(this.id).style.top = this.y;
             document.getElementById(this.id).querySelector("b").innerHTML = this.inside;
-            document.getElementById(this.id).querySelector("b").style.color = "red";
+            document.getElementById(this.id).querySelector("b").style.color = this.setColor();
         };
 
     };
-    let broad = [];
-    broad = makeNewBroad(20, 20, broad);
-    for (let e of broad) {
-        e.display();
-    }
 
-
-    function makeNewBroad(xMax, yMax, arr) {
-        arr = [];
-        for (let y = 1; y < yMax + 1; y++) {
-            for (let x = 1; x < xMax + 1; x++) {
-                arr.push(new Cell(x, y,))
+    let broad = {
+        width: 0,
+        height: 0,
+        value: [],
+        makeNewBroad: function (xMax, yMax, color, cellSize, inside) {
+            broad.width = xMax;
+            broad.height = yMax;
+            this.value = [];
+            for (let y = 1; y < yMax + 1; y++) {
+                for (let x = 1; x < xMax + 1; x++) {
+                    this.value.push(new Cell(x, y, inside, cellSize, color));
+                }
             }
+            console.log("array generated " + xMax + " x " + yMax);
+        },
+        displayBroad: function () {
+            for (let e of this.value) {
+                e.display();
+            }
+            console.log("broad: "+"width "+this.width+", height "+this.height);
         }
-        console.log("array generated " + xMax + " x " + yMax);
-        return arr;
-    }
+    };
+    let game = {
+        turn: "",
+        iswin: false,
+        getCellPosistion: function () {
 
+        }
+
+    };
+
+    broad.makeNewBroad(10,10,"green",50,"m");
+    broad.displayBroad();
+
+    function marked(id) {
+        console.log(id)
+    }
 
 </script>
 </body>
