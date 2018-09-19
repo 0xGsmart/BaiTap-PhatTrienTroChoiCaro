@@ -18,7 +18,7 @@
         this.x = (xNumber * this.cellSize) + "px";
         this.y = (yNumber * this.cellSize) + "px";
         this.id = xNumber + "x" + yNumber;
-        this.inside = inside || "";
+        this.inside = inside || " ";
         this.borderColor = color || "black";
 
         this.setColor = function () {
@@ -70,6 +70,7 @@
             console.log("broad: "+"width "+this.width+", height "+this.height);
         }
     };
+
     let game = {
         turn: "",
         iswin: false,
@@ -79,7 +80,7 @@
 
     };
 
-    broad.makeNewBroad(10,10,"green",50,"m");
+    broad.makeNewBroad(10,10,"green",50);
     broad.displayBroad();
 
     function marked(id) {
